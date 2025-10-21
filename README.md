@@ -1,25 +1,35 @@
-# 🎓 Student Management System — FastAPI
+# 🎓 Student Management System — FastAPI + React
 
-A simple **Student Management API** built using **FastAPI** and **SQLModel**.  
-This project provides a backend service for managing student records with full **CRUD** functionality.
+A full-stack **Student Management System** built using **FastAPI** (Backend) and **React** (Frontend).  
+This project allows users to **Add, View, Update, and Delete** student records through a modern UI powered by React and Material UI.
 
 ---
 
 ## 🚀 Features
-- ➕ Add new students  
-- 📋 View all students  
-- ✏️ Update student details  
-- ❌ Delete student by roll number  
-- 🗃️ SQLite database integration  
-- ⚡ Built with FastAPI for high performance  
+
+### 🖥️ Frontend (React + Material UI)
+- Beautiful and responsive interface  
+- Add new students easily  
+- View all students in a dynamic table  
+- Update and Delete students  
+- Integrated with backend using **Axios**  
+- Notifications using **React Toastify**
+
+### ⚙️ Backend (FastAPI)
+- Full **CRUD API** for student management  
+- SQLite database integration via **SQLModel**  
+- Fast and async-ready architecture  
+- Well-structured routes for scalability  
 
 ---
 
 ## 🧰 Tech Stack
-- **FastAPI** — Modern, high-performance Python web framework  
-- **SQLModel** — ORM for database interaction (built on SQLAlchemy + Pydantic)  
-- **SQLite** — Lightweight local database  
-- **Uvicorn** — ASGI server for running the FastAPI app  
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | React, Material UI, Axios, React Router DOM, React Toastify |
+| **Backend** | FastAPI, SQLModel, Uvicorn |
+| **Database** | SQLite |
 
 ---
 
@@ -28,41 +38,75 @@ This project provides a backend service for managing student records with full *
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Awais-Rasheed/Students_Management_FastAPI
-cd student-management-fastapi
-```
-
-### 2️⃣ Create a Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate      # Linux/Mac
-venv\Scripts\activate       # Windows
-```
-
-### 3️⃣ Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4️⃣ Run the App
-```bash
-uvicorn main:app --reload
+cd Students_Management_FastAPI
 ```
 
 ---
 
-## 🧪 API Endpoints
+## 🐍 Backend Setup (FastAPI)
+
+### Create Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate       # Linux/Mac
+venv\Scripts\activate          # Windows
+```
+
+### Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Run the FastAPI Server
+```bash
+uvicorn main:app --reload
+```
+
+Server will start on:
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## ⚛️ Frontend Setup (React)
+
+### Move into frontend folder
+```bash
+cd frontend
+```
+
+### Install Node Modules
+```bash
+npm install
+```
+
+### Run React App
+```bash
+npm run dev
+```
+
+React app will start on:
+```
+http://localhost:5173
+```
+
+---
+
+## 🔗 API Endpoints
 
 | Method | Endpoint | Description |
 |--------|-----------|-------------|
 | **GET** | `/` | Welcome message |
 | **POST** | `/add_student` | Add a new student |
 | **GET** | `/all_students` | Get all students |
-| **PUT** | `/update_student/{roll_no}` | Update student details |
-| **DELETE** | `/delete_student/{roll_no}` | Delete a student by roll number |
+| **PUT** | `/update-student/{roll_no}` | Update student details |
+| **DELETE** | `/delete-student/{roll_no}` | Delete a student by roll number |
 
 ---
 
 ## 🧾 Example Request (POST `/add_student`)
+
 ```json
 {
   "name": "Awais",
@@ -73,20 +117,20 @@ uvicorn main:app --reload
 
 ---
 
-## 📚 Learnings
-- Building CRUD APIs with **FastAPI**
-- Managing databases with **SQLModel**
-- Working with **Pydantic models**
-- Structuring scalable Python backend projects
+## 🧠 Learnings
+- FastAPI and SQLModel integration  
+- REST API development and testing  
+- React + Axios API integration  
+- Using Material UI and Toastify for better UX  
+- Managing virtual environments and project structure  
 
 ---
 
 ## 🧑‍💻 Author
+
 **Awais**  
-Software Engineer — Web Development  
-[GitHub](https://github.com/Awais-Rasheed)
+Software Engineer — Web Developer  
 
----
+🔗 [GitHub Profile](https://github.com/Awais-Rasheed)
 
-## 🪪 License
-This project is licensed under the [MIT License](LICENSE).
+````
