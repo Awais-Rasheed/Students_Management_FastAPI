@@ -6,12 +6,12 @@ This project allows users to **Add, View, Update, and Delete** student records t
 ---
 ## Project Demo
 
-<video src="https://raw.githubusercontent.com/docodeawais/ATM_Simulator/main/ATM_Simulator.webm"
+<video src="https://raw.githubusercontent.com/Awais-Rasheed/Students_Management_FastAPI/blob/main/demo_student_management.webm"
        controls
        width="600">
 </video>
 
-🎥 [Click here if the video doesn’t load](https://raw.githubusercontent.com/docodeawais/ATM_Simulator/main/ATM_Simulator.webm)
+🎥 [Click here if the video doesn’t load](https://raw.githubusercontent.com/Awais-Rasheed/Students_Management_FastAPI/main/demo_student_management.webm)
 
 ---
 ## 🚀 Features
