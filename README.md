@@ -4,7 +4,16 @@ A full-stack **Student Management System** built using **FastAPI** (Backend) and
 This project allows users to **Add, View, Update, and Delete** student records through a modern UI powered by React and Material UI.
 
 ---
+## Project Demo
 
+<video src="https://raw.githubusercontent.com/docodeawais/ATM_Simulator/main/ATM_Simulator.webm"
+       controls
+       width="600">
+</video>
+
+🎥 [Click here if the video doesn’t load](https://raw.githubusercontent.com/docodeawais/ATM_Simulator/main/ATM_Simulator.webm)
+
+---
 ## 🚀 Features
 
 ### 🖥️ Frontend (React + Material UI)

@@ -1,108 +1,96 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+// src/components/UpdateStudentModal.jsx
+import React, { useState, useEffect } from "react";
+import {
+  Modal,
+  Box,
+  TextField,
+  Button,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
-import { Box, TextField, Button, Typography, Paper } from "@mui/material";
 import { toast } from "react-toastify";
 
-function UpdateStudent() {
-  const { roll_no } = useParams();
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: 2,
+  boxShadow: 24,
+  p: 4,
+};
+
+function Update_Student({ open, handleClose, student, fetchStudent }) {
   const [updated_name, setUpdatedName] = useState("");
   const [updated_roll_no, setUpdatedRollNo] = useState("");
   const [updated_address, setUpdatedAddress] = useState("");
 
+  useEffect(() => {
+    if (student) {
+      setUpdatedName(student.name);
+      setUpdatedRollNo(student.roll_no);
+      setUpdatedAddress(student.address);
+    }
+  }, [student]);
+
   const handleUpdate = async (e) => {
     e.preventDefault();
-
-    if (!updated_name || !updated_roll_no || !updated_address) {
-      toast.warning("⚠️ Please fill all fields before submitting");
-      return;
-    }
-
     try {
-      await axios.put(`http://127.0.0.1:8000/update-student/${roll_no}`, null, {
-        params: {
-          updated_name,
-          updated_roll_no: Number(updated_roll_no),
-          updated_address,
-        },
-      });
-
+      await axios.put(
+        `http://127.0.0.1:8000/update-student/${student.roll_no}`,
+        null,
+        {
+          params: {
+            updated_name,
+            updated_roll_no: Number(updated_roll_no),
+            updated_address,
+          },
+        }
+      );
       toast.success("✅ Student Updated Successfully!");
-      setUpdatedName("");
-      setUpdatedRollNo("");
-      setUpdatedAddress("");
+      fetchStudent();
+      handleClose();
     } catch (error) {
-      console.error(error);
       toast.error("❌ Failed to update student!");
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundColor: "#f4f6f8",
-        p: 2,
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{
-          p: 4,
-          borderRadius: 3,
-          width: "400px",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h5" gutterBottom fontWeight="bold">
-          ✏️ Update Student (Roll No: {roll_no})
-        </Typography>
-
-        <Box
-          component="form"
-          onSubmit={handleUpdate}
-          sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}
-        >
+    <Modal open={open} onClose={handleClose}>
+      <Box sx={style}>
+        <Typography variant="h4" mb={2} sx={{textAlign:'center'}}>Update Student</Typography>
+        <form onSubmit={handleUpdate}>
           <TextField
-            label="New Name"
-            variant="outlined"
+            label="Name"
+            fullWidth
+            margin="dense"
             value={updated_name}
             onChange={(e) => setUpdatedName(e.target.value)}
-            fullWidth
           />
-
           <TextField
-            label="New Roll No"
+            label="Roll No"
             type="number"
-            variant="outlined"
+            fullWidth
+            margin="dense"
             value={updated_roll_no}
             onChange={(e) => setUpdatedRollNo(e.target.value)}
-            fullWidth
           />
-
           <TextField
-            label="New Address"
-            variant="outlined"
+            label="Address"
+            fullWidth
+            margin="dense"
             value={updated_address}
             onChange={(e) => setUpdatedAddress(e.target.value)}
-            fullWidth
           />
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ mt: 2 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
             Update Student
           </Button>
-        </Box>
-      </Paper>
-    </Box>
+        </form>
+      </Box>
+    </Modal>
   );
 }
 
-export default UpdateStudent;
+export default Update_Student;

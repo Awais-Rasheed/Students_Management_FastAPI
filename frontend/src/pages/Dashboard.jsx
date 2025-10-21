@@ -1,39 +1,50 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import { Box } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Box,
+} from "@mui/material";
+import { tableCellClasses } from "@mui/material/TableCell";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import Add_Student from "../components/Add_Student";
+import Update_Student from "../components/Update_Student";
 
 function Dashboard() {
-  const [student, setStudent] = useState([]);
-  
+  const [students, setStudents] = useState([]);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const fetchStudent = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/all-students");
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudent();
+  }, []);
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
     },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
   }));
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
+    "&:nth-of-type(odd)": { backgroundColor: theme.palette.action.hover },
   }));
 
   const handleDelete = async (roll_no) => {
@@ -47,11 +58,13 @@ function Dashboard() {
             size="small"
             onClick={async () => {
               try {
-                await axios.delete(`http://127.0.0.1:8000/delete-student/${roll_no}`);
-                toast.dismiss(); // Close confirmation toast
+                await axios.delete(
+                  `http://127.0.0.1:8000/delete-student/${roll_no}`
+                );
+                toast.dismiss();
                 toast.success("🗑️ Student Deleted Successfully!");
                 fetchStudent();
-              } catch (error) {
+              } catch {
                 toast.dismiss();
                 toast.error("❌ Failed to delete student!");
               }
@@ -59,57 +72,29 @@ function Dashboard() {
           >
             Yes
           </Button>
-          <Button
-            variant="outlined"
-            color="inherit"
-            size="small"
-            onClick={() => toast.dismiss()}
-          >
+          <Button variant="outlined" color="inherit" size="small" onClick={() => toast.dismiss()}>
             No
           </Button>
         </div>
       </div>,
-      {
-        autoClose: false,
-        closeOnClick: false,
-        draggable: false,
-      }
+      { autoClose: false, closeOnClick: false, draggable: false }
     );
   };
 
-  const fetchStudent = async () =>{
-     try {
-      const response = await axios.get("http://127.0.0.1:8000/all-students");
-      setStudent(response.data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  }
-  useEffect(() => {
-    fetchStudent();
-  }, []);
-
   return (
     <>
-      <TableContainer
-        component={Paper}
-        sx={{ maxWidth: "60%", margin: "auto" }}
-      >
+      <TableContainer component={Paper} sx={{ maxWidth: "60%", margin: "auto" }}>
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
-            component={Link}
-            to="/add-student"
             variant="contained"
             color="success"
             sx={{ margin: "20px" }}
+            onClick={() => setOpenAdd(true)}
           >
             Add New Student
           </Button>
         </Box>
-        <Table
-          sx={{ maxWidth: "80%", margin: "auto" }}
-          aria-label="customized table"
-        >
+        <Table sx={{ maxWidth: "80%", margin: "auto" }}>
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
@@ -119,29 +104,28 @@ function Dashboard() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {student.map((std) => (
+            {students.map((std) => (
               <StyledTableRow key={std.id}>
-                <StyledTableCell component="th" scope="row">
-                  {std.name}
-                </StyledTableCell>
+                <StyledTableCell>{std.name}</StyledTableCell>
                 <StyledTableCell align="center">{std.roll_no}</StyledTableCell>
                 <StyledTableCell align="center">{std.address}</StyledTableCell>
                 <StyledTableCell align="center">
                   <Button
-                  component={Link}
-                    to={`/update-student/${std.roll_no}`}
                     variant="contained"
-                    color="success"
-                    sx={{ margin: "10px" }}
+                    color="primary"
+                    sx={{ margin: "5px" }}
+                    onClick={() => {
+                      setSelectedStudent(std);
+                      setOpenUpdate(true);
+                    }}
                   >
                     Update
                   </Button>
-
                   <Button
                     variant="outlined"
                     color="error"
-                    sx={{ margin: "10px" }}
-                    onClick = {()=> handleDelete(std.roll_no)}
+                    sx={{ margin: "5px" }}
+                    onClick={() => handleDelete(std.roll_no)}
                   >
                     Delete
                   </Button>
@@ -151,6 +135,19 @@ function Dashboard() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Modals */}
+      <Add_Student
+        open={openAdd}
+        handleClose={() => setOpenAdd(false)}
+        fetchStudent={fetchStudent}
+      />
+      <Update_Student
+        open={openUpdate}
+        handleClose={() => setOpenUpdate(false)}
+        student={selectedStudent}
+        fetchStudent={fetchStudent}
+      />
     </>
   );
 }

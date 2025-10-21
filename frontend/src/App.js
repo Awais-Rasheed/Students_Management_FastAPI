@@ -11,7 +11,7 @@ function App() {
   return (
    
     <>
-      <h1 style={{textAlign: "center"}}>Student Management System</h1>
+      <h1 style={{textAlign: "center", color: "white"}}>Student Management System</h1>
       <Routes>
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/add-student" element={<Add_Student/>} />
