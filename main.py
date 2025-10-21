@@ -44,7 +44,7 @@ def add_student(std: Student):
         return {"message":"Student Added Successfully", "student": std}
 
 #Endpoint to view all Students
-@app.get("/all_students")
+@app.get("/all-students")
 def get_all_students():
     with Session(engine) as session:
         students = session.exec(select(Student)).all()
