@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { addStudent } from "../services/studentService";
 
 const style = {
   position: "absolute",
@@ -30,11 +31,7 @@ function Add_Student({ open, handleClose, fetchStudent }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://127.0.0.1:8000/add-student", {
-        name,
-        roll_no: Number(roll_no),
-        address,
-      });
+      await addStudent({ name, roll_no: Number(roll_no), address });
       toast.success("✅ Student Added Successfully!");
       fetchStudent();
       handleClose();

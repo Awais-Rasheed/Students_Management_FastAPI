@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { styled } from "@mui/material/styles";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  Box,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Paper, Button, Box
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { toast } from "react-toastify";
 import Add_Student from "../components/Add_Student";
 import Update_Student from "../components/Update_Student";
+import { getAllStudents, deleteStudent } from "../services/studentService";
 
 function Dashboard() {
   const [students, setStudents] = useState([]);
@@ -25,8 +18,8 @@ function Dashboard() {
 
   const fetchStudent = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/all-students");
-      setStudents(response.data);
+      const data = await getAllStudents();
+      setStudents(data);
     } catch (error) {
       console.error("Error fetching students:", error);
     }
@@ -47,7 +40,7 @@ function Dashboard() {
     "&:nth-of-type(odd)": { backgroundColor: theme.palette.action.hover },
   }));
 
-  const handleDelete = async (roll_no) => {
+  const handleDelete = (roll_no) => {
     toast.info(
       <div>
         <p>Are you sure you want to delete this student?</p>
@@ -58,9 +51,7 @@ function Dashboard() {
             size="small"
             onClick={async () => {
               try {
-                await axios.delete(
-                  `http://127.0.0.1:8000/delete-student/${roll_no}`
-                );
+                await deleteStudent(roll_no);
                 toast.dismiss();
                 toast.success("🗑️ Student Deleted Successfully!");
                 fetchStudent();
@@ -136,12 +127,7 @@ function Dashboard() {
         </Table>
       </TableContainer>
 
-      {/* Modals */}
-      <Add_Student
-        open={openAdd}
-        handleClose={() => setOpenAdd(false)}
-        fetchStudent={fetchStudent}
-      />
+      <Add_Student open={openAdd} handleClose={() => setOpenAdd(false)} fetchStudent={fetchStudent} />
       <Update_Student
         open={openUpdate}
         handleClose={() => setOpenUpdate(false)}

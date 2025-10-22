@@ -1,14 +1,9 @@
 // src/components/UpdateStudentModal.jsx
 import React, { useState, useEffect } from "react";
-import {
-  Modal,
-  Box,
-  TextField,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Modal, Box, TextField, Button, Typography } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { updateStudent } from "../services/studentService";
 
 const style = {
   position: "absolute",
@@ -38,17 +33,11 @@ function Update_Student({ open, handleClose, student, fetchStudent }) {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(
-        `http://127.0.0.1:8000/update-student/${student.roll_no}`,
-        null,
-        {
-          params: {
-            updated_name,
-            updated_roll_no: Number(updated_roll_no),
-            updated_address,
-          },
-        }
-      );
+      await updateStudent(student.roll_no, {
+        updated_name,
+        updated_roll_no: Number(updated_roll_no),
+        updated_address,
+      });
       toast.success("✅ Student Updated Successfully!");
       fetchStudent();
       handleClose();
@@ -60,7 +49,9 @@ function Update_Student({ open, handleClose, student, fetchStudent }) {
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
-        <Typography variant="h4" mb={2} sx={{textAlign:'center'}}>Update Student</Typography>
+        <Typography variant="h4" mb={2} sx={{ textAlign: "center" }}>
+          Update Student
+        </Typography>
         <form onSubmit={handleUpdate}>
           <TextField
             label="Name"

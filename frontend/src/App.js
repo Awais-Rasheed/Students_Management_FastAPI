@@ -13,7 +13,7 @@ function App() {
     <>
       <h1 style={{textAlign: "center", color: "white"}}>Student Management System</h1>
       <Routes>
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/" element={<Dashboard/>} />
         <Route path="/add-student" element={<Add_Student/>} />
         <Route path="/update-student/:roll_no" element={<Update_Student/>} />
     </Routes>
