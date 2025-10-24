@@ -41,6 +41,7 @@ function Update_Student({ open, handleClose, student, fetchStudent }) {
       fetchStudent();
       handleClose();
     } catch (error) {
+      console.log(error)
       toast.error("❌ Failed to update student!");
     }
   };

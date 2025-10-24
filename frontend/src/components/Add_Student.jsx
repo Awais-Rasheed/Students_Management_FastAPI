@@ -1,5 +1,5 @@
 // src/components/AddStudentModal.jsx
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Box,
@@ -27,7 +27,7 @@ function Add_Student({ open, handleClose, fetchStudent }) {
   const [roll_no, setRollNo] = useState("");
   const [address, setAddress] = useState("");
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,6 +36,7 @@ function Add_Student({ open, handleClose, fetchStudent }) {
       fetchStudent();
       handleClose();
     } catch (error) {
+      console.log(error)
       toast.error("❌ Failed to add student!");
     }
   };
