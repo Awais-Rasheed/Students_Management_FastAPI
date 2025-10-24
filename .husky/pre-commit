@@ -1,0 +1,4 @@
+#!/bin/sh
+echo "🔍 Running ESLint before commit..."
+cd frontend || exit 1
+npm run eslint || exit 1

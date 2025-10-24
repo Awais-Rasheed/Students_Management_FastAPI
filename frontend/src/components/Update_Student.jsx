@@ -1,7 +1,6 @@
 // src/components/UpdateStudentModal.jsx
 import React, { useState, useEffect } from "react";
 import { Modal, Box, TextField, Button, Typography } from "@mui/material";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { updateStudent } from "../services/studentService";
 

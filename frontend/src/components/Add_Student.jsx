@@ -1,5 +1,5 @@
 // src/components/AddStudentModal.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   Box,
@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { addStudent } from "../services/studentService";
 
@@ -28,6 +27,7 @@ function Add_Student({ open, handleClose, fetchStudent }) {
   const [roll_no, setRollNo] = useState("");
   const [address, setAddress] = useState("");
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
