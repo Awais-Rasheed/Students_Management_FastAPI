@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
-Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Paper, Button, Box
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Box,
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { toast } from "react-toastify";
@@ -63,7 +70,12 @@ function Dashboard() {
           >
             Yes
           </Button>
-          <Button variant="outlined" color="inherit" size="small" onClick={() => toast.dismiss()}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            size="small"
+            onClick={() => toast.dismiss()}
+          >
             No
           </Button>
         </div>
@@ -74,7 +86,21 @@ function Dashboard() {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ maxWidth: "60%", margin: "auto" }}>
+      <Button
+      variant="contained"
+            color="primary"
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+        onClick={() => {
+          localStorage.removeItem("access_token");
+          window.location.href = "/login";
+        }}
+      >
+        Logout
+      </Button>
+      <TableContainer
+        component={Paper}
+        sx={{ maxWidth: "60%", margin: "auto" }}
+      >
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="contained"
@@ -127,7 +153,11 @@ function Dashboard() {
         </Table>
       </TableContainer>
 
-      <Add_Student open={openAdd} handleClose={() => setOpenAdd(false)} fetchStudent={fetchStudent} />
+      <Add_Student
+        open={openAdd}
+        handleClose={() => setOpenAdd(false)}
+        fetchStudent={fetchStudent}
+      />
       <Update_Student
         open={openUpdate}
         handleClose={() => setOpenUpdate(false)}

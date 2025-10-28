@@ -6,3 +6,8 @@ export const STUDENT_ENDPOINTS = {
   UPDATE: (rollNo) => `${BASE_URL}/update-student/${rollNo}`,
   DELETE: (rollNo) => `${BASE_URL}/delete-student/${rollNo}`,
 };
+
+export const AUTH_ENDPOINTS = {
+  SIGNUP: `${BASE_URL}/auth/signup`,
+  LOGIN: `${BASE_URL}/auth/login`,
+};

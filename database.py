@@ -1,8 +1,8 @@
-from sqlmodel import create_engine
-# ======================
-# Database Setup
-# ======================
+# database.py
+from sqlmodel import SQLModel, create_engine
 
-def db_connection():
-    DATABASE_URL = "sqlite:///students.db"
-    engine = create_engine(DATABASE_URL, echo=True)
+DATABASE_URL = "sqlite:///students.db"
+engine = create_engine(DATABASE_URL, echo=True)
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
