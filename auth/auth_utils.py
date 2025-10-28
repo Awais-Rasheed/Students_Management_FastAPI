@@ -1,8 +1,8 @@
 # auth/auth_utils.py
 from datetime import datetime, timedelta
-from jose import jwt, JWTError
-from passlib.context import CryptContext
-from dotenv import load_dotenv
+from jose import jwt, JWTError #type:ignore
+from passlib.context import CryptContext #type:ignore
+from dotenv import load_dotenv #type:ignore
 import os
 
 load_dotenv()
