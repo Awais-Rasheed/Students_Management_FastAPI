@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session, select
 from database import engine
-from models import Student
+from models.models import Student
 from pydantic import BaseModel, Field
 
 router = APIRouter()
