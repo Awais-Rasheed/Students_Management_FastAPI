@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import create_db_and_tables
 from routers.student_routes import router as student_router
-from routers.routes import router as auth_router
+from backend.routers.auth_routes import router as auth_router
 
 app = FastAPI(title="Student Management System")
 
